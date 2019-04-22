@@ -644,6 +644,10 @@ int getCost(int cardNumber)
   return -1;
 }
 
+
+
+
+//Refactor         used to abstract cards from the switch statement
 int adventurerCard(struct gameState *state, int *drawntreasure, int currentPlayer, int cardDrawn, int temphand, int z){ 
    while(drawntreasure<2){
 	if (state->deckCount[currentPlayer] <1){//if the deck is empty we need to shuffle discard and add to deck
@@ -753,14 +757,6 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
     nextPlayer = 0;
   }
   
-
-
-//Refactor         used to abstract cards from the switch statement
- 
-  
-
-
-
 
 
 
