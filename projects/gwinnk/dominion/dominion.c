@@ -663,6 +663,8 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
     nextPlayer = 0;
   }
   
+
+
 //Refactor         used to abstract cards from the switch statement
   int adventurerCard(){ 
    while(drawntreasure<2){
@@ -686,6 +688,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
       return 0;
       }
 
+
   int smithyCard(){
     //draw 3 cards
       for (i = 0; i < 3; i++)
@@ -698,8 +701,57 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
     return 0;
   }
 
+  int great_hallCard(){
+          //+1 Card
+      drawCard(currentPlayer, state);
+			
+      //+1 Actions
+      state->numActions++;
+			
+      //discard card from hand
+      discardCard(handPos, currentPlayer, state, 0);
+      return 0;
+  }
 
+  int sea_hagCard(){
+      for (i = 0; i < state->numPlayers; i++){
+	      if (i != currentPlayer){
+	        state->discard[i][state->discardCount[i]] = state->deck[i][state->deckCount[i]--];			    state->deckCount[i]--;
+	        state->discardCount[i]++;
+	        state->deck[i][state->deckCount[i]--] = curse;//Top card now a curse
+	      }
+      }
+    return 0;
+  }
 	
+  int stewardCard(){
+          if (choice1 == 1)
+	{
+	  //+2 cards
+	  drawCard(currentPlayer, state);
+	  drawCard(currentPlayer, state);
+	}
+      else if (choice1 == 2)
+	{
+	  //+2 coins
+	  state->coins = state->coins + 2;
+	}
+      else
+	{
+	  //trash 2 cards in hand
+	  discardCard(choice2, currentPlayer, state, 1);
+	  discardCard(choice3, currentPlayer, state, 1);
+	}
+			
+      //discard card from hand
+      discardCard(handPos, currentPlayer, state, 0);
+    return 0;
+  }
+
+
+
+
+
   //uses switch to select card and perform actions
   switch( card ) 
     {
@@ -850,7 +902,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
       return 0;
 		
     case smithy:
-      //+3 Cards
+    
       smithyCard();
 
       return 0;
@@ -918,16 +970,13 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
       return 0;
 		
     case great_hall:
-      //+1 Card
-      drawCard(currentPlayer, state);
-			
-      //+1 Actions
-      state->numActions++;
-			
-      //discard card from hand
-      discardCard(handPos, currentPlayer, state, 0);
+      great_hallCard();
       return 0;
 		
+
+
+
+
     case minion:
       //+1 action
       state->numActions++;
@@ -980,26 +1029,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
       return 0;
 		
     case steward:
-      if (choice1 == 1)
-	{
-	  //+2 cards
-	  drawCard(currentPlayer, state);
-	  drawCard(currentPlayer, state);
-	}
-      else if (choice1 == 2)
-	{
-	  //+2 coins
-	  state->coins = state->coins + 2;
-	}
-      else
-	{
-	  //trash 2 cards in hand
-	  discardCard(choice2, currentPlayer, state, 1);
-	  discardCard(choice3, currentPlayer, state, 1);
-	}
-			
-      //discard card from hand
-      discardCard(handPos, currentPlayer, state, 0);
+      stewardCard();
       return 0;
 		
     case tribute:
@@ -1196,13 +1226,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
       return 0;
 		
     case sea_hag:
-      for (i = 0; i < state->numPlayers; i++){
-	if (i != currentPlayer){
-	  state->discard[i][state->discardCount[i]] = state->deck[i][state->deckCount[i]--];			    state->deckCount[i]--;
-	  state->discardCount[i]++;
-	  state->deck[i][state->deckCount[i]--] = curse;//Top card now a curse
-	}
-      }
+      sea_hagCard();
       return 0;
 		
     case treasure_map:
