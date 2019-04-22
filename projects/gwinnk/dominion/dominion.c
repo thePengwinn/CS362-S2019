@@ -673,7 +673,7 @@ int adventurerCard(struct gameState state, int drawntreasure, int currentPlayer,
 
     int smithyCard(struct gameState *state, int currentPlayer, int handPos){
     //draw 3 cards
-      for (i = 0; i < 3; i++)
+      for (i = ; i <= 3; i++)
 	{
 	  drawCard(currentPlayer, state);
 	}
@@ -686,11 +686,12 @@ int adventurerCard(struct gameState state, int drawntreasure, int currentPlayer,
 
   int great_hallCard(struct gameState *state, int currentPlayer, int handPos){
           //+1 Card
+         
       drawCard(currentPlayer, state);
 			
       //+1 Actions
       state->numActions++;
-			
+			currentPlayer++; 
       //discard card from hand
       discardCard(handPos, currentPlayer, state, 0);
       return 0;
@@ -709,7 +710,7 @@ int adventurerCard(struct gameState state, int drawntreasure, int currentPlayer,
   }
 	
   int stewardCard(int choice1, int choice2, int choice3, struct gameState *state, int handPos){
-          if (choice1 == 1)
+          if (choice1 = 1)
 	{
 	  //+2 cards
 	  drawCard(currentPlayer, state);
