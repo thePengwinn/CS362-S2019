@@ -648,7 +648,7 @@ int getCost(int cardNumber)
 
 
 //Refactor         used to abstract cards from the switch statement
-int adventurerCard(struct gameState state, int *drawntreasure, int currentPlayer, int cardDrawn, int temphand, int z){ 
+int adventurerCard(struct gameState *state, int *drawntreasure, int currentPlayer, int cardDrawn, int temphand, int z){ 
    while(drawntreasure<2){
 	if (state->deckCount[currentPlayer] <1){//if the deck is empty we need to shuffle discard and add to deck
 	  shuffle(currentPlayer, state);
@@ -696,7 +696,7 @@ int adventurerCard(struct gameState state, int *drawntreasure, int currentPlayer
       return 0;
   }
 
-  int sea_hagCard(struct gameState state, int currentPlayer){
+  int sea_hagCard(struct gameState *state, int currentPlayer){
       for (i = 0; i < state->numPlayers; i++){
 	      if (i != currentPlayer){
 	        state->discard[i][state->discardCount[i]] = state->deck[i][state->deckCount[i]--];			    
