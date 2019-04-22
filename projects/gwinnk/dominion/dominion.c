@@ -666,6 +666,71 @@ int adventurerCard(struct gameState *state, int *drawntreasure, int currentPlaye
       return 0;
       }
 
+
+    int smithyCard(struct gameState *state, int currentPlayer, int handPos){
+    //draw 3 cards
+      for (i = 0; i < 3; i++)
+	{
+	  drawCard(currentPlayer, state);
+	}
+			
+      //discard card from hand
+      discardCard(handPos, currentPlayer, state, 0);
+    return 0;
+  }
+
+
+  int great_hallCard(struct gameState *state, int currentPlayer, int handPos){
+          //+1 Card
+      drawCard(currentPlayer, state);
+			
+      //+1 Actions
+      state->numActions++;
+			
+      //discard card from hand
+      discardCard(handPos, currentPlayer, state, 0);
+      return 0;
+  }
+
+  int sea_hagCard(struct gameState *state, int currentPlayer){
+      for (i = 0; i < state->numPlayers; i++){
+	      if (i != currentPlayer){
+	        state->discard[i][state->discardCount[i]] = state->deck[i][state->deckCount[i]--];			    
+          state->deckCount[i]--;
+	        state->discardCount[i]++;
+	        state->deck[i][state->deckCount[i]--] = curse;//Top card now a curse
+	      }
+      }
+    return 0;
+  }
+	
+  int stewardCard(int choice1, int choice2, int choice3, struct gameState *state, int handPos){
+          if (choice1 == 1)
+	{
+	  //+2 cards
+	  drawCard(currentPlayer, state);
+	  drawCard(currentPlayer, state);
+	}
+      else if (choice1 == 2)
+	{
+	  //+2 coins
+	  state->coins = state->coins + 2;
+	}
+      else
+	{
+	  //trash 2 cards in hand
+	  discardCard(choice2, currentPlayer, state, 1);
+	  discardCard(choice3, currentPlayer, state, 1);
+	}
+			
+      //discard card from hand
+      discardCard(handPos, currentPlayer, state, 0);
+    return 0;
+  }
+
+
+
+
 int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus)
 //card, choice1, choice2, choice3, state, handPos, &coin_bonus
 
@@ -695,64 +760,9 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
   
 
 
-  int smithyCard(){
-    //draw 3 cards
-      for (i = 0; i < 3; i++)
-	{
-	  drawCard(currentPlayer, state);
-	}
-			
-      //discard card from hand
-      discardCard(handPos, currentPlayer, state, 0);
-    return 0;
-  }
 
-  int great_hallCard(){
-          //+1 Card
-      drawCard(currentPlayer, state);
-			
-      //+1 Actions
-      state->numActions++;
-			
-      //discard card from hand
-      discardCard(handPos, currentPlayer, state, 0);
-      return 0;
-  }
 
-  int sea_hagCard(){
-      for (i = 0; i < state->numPlayers; i++){
-	      if (i != currentPlayer){
-	        state->discard[i][state->discardCount[i]] = state->deck[i][state->deckCount[i]--];			    state->deckCount[i]--;
-	        state->discardCount[i]++;
-	        state->deck[i][state->deckCount[i]--] = curse;//Top card now a curse
-	      }
-      }
-    return 0;
-  }
-	
-  int stewardCard(){
-          if (choice1 == 1)
-	{
-	  //+2 cards
-	  drawCard(currentPlayer, state);
-	  drawCard(currentPlayer, state);
-	}
-      else if (choice1 == 2)
-	{
-	  //+2 coins
-	  state->coins = state->coins + 2;
-	}
-      else
-	{
-	  //trash 2 cards in hand
-	  discardCard(choice2, currentPlayer, state, 1);
-	  discardCard(choice3, currentPlayer, state, 1);
-	}
-			
-      //discard card from hand
-      discardCard(handPos, currentPlayer, state, 0);
-    return 0;
-  }
+
 
 
 
@@ -909,7 +919,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 		
     case smithy:
     
-      smithyCard();
+      smithyCard(state, currentPlayer, handPos);
 
       return 0;
 		
@@ -976,7 +986,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
       return 0;
 		
     case great_hall:
-      great_hallCard();
+      great_hallCard(state, currentPlayer, handPos);
       return 0;
 		
 
@@ -1035,7 +1045,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
       return 0;
 		
     case steward:
-      stewardCard();
+      stewardCard(choice1, choice2, choice3, state, handPos);
       return 0;
 		
     case tribute:
@@ -1232,7 +1242,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
       return 0;
 		
     case sea_hag:
-      sea_hagCard();
+      sea_hagCard(state, currentPlayer);
       return 0;
 		
     case treasure_map:
