@@ -696,7 +696,7 @@ int adventurerCard(struct gameState *state, int *drawntreasure, int currentPlaye
       return 0;
   }
 
-  int sea_hagCard(struct gameState *state, int currentPlayer){
+  int sea_hagCard(struct gameState state, int currentPlayer){
       for (i = 0; i < state->numPlayers; i++){
 	      if (i != currentPlayer){
 	        state->discard[i][state->discardCount[i]] = state->deck[i][state->deckCount[i]--];			    
