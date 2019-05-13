@@ -5,14 +5,82 @@
 
 char inputChar()
 {
-    // TODO: rewrite this function
-    return ' ';
+    
+	int temp;
+	char c;
+
+		temp = (rand() % 95) + 32;
+		c = (char)temp;
+
+
+    return c;
 }
 
 char *inputString()
 {
-    // TODO: rewrite this function
-    return "";
+   // create a string to fill with random letters(the first 5 letters select from e - t)
+	char str[6];
+	int i;
+	for (i = 0; i < 5; i++) {
+		int temp1 = (rand() % 16) + 101;
+		char c = (char)temp1;
+		str[i] = c;
+	}
+
+	// random number between 0 and 15, anything over 3 puts expected end of '\0'
+	int temp1 = (rand() % 16);
+	
+	//normal end
+	if (temp1 > 3) {
+		str[5] = '\0';
+	}
+
+	//0 gives string of 6 random chars and random end
+	else if (temp1 == 0) {
+		for (i = 0; i < 6; i++) {
+			int temp2 = (rand() % 96) + 32;
+			char c = (char)temp2;
+			str[i] = c;
+		}
+	}
+
+	//1 gives string of 5 with random end letter
+	else if (temp1 == 1) {
+		int temp2 = (rand() % 96) + 32;
+		str[5] = (char)temp2;
+	}
+
+	//2 gives too short of a string
+	else if (temp1 == 2) {
+		char str2[5];
+		int i;
+		for (i = 0; i < 5; i++) {
+			int temp1 = (rand() % 16) + 101;
+			char c = (char)temp1;
+			str[i] = c;
+		}
+		char *s = str2;
+		return s;
+	}
+
+	//3 gives too long a string
+	else if (temp1 == 3) {
+		char str2[7];
+		int i;
+		for (i = 0; i < 7; i++) {
+			int temp1 = (rand() % 16) + 101;
+			char c = (char)temp1;
+			str[i] = c;
+		}
+		char *s = str2;
+		return s;
+	}
+
+
+
+
+	char *s = str;
+	return s;
 }
 
 void testme()
