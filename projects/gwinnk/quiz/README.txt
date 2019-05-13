@@ -1,5 +1,4 @@
-Random tester tests the testme function using a random testing technique.  In theory it will run the function approximately 2,000,000 times before reaching an
-error.  Using the make all command will put all iterations into testmeiterations.out instead of printing to console which will greatly speed up the process.
+Random tester tests the testme function using a random testing technique.  In theory it will run the function approximately 2,000,000 times before reaching an error.  Using the make all command will put all iterations into testmeiterations.out instead of printing to console which will greatly speed up the process.
 
 Makefile commands
 
