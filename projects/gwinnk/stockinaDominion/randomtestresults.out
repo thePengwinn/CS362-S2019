@@ -1,0 +1,30 @@
+------ Testing Village...
+Failures: 0
+Incorrect cards drawn: 0
+Incorrect Addition of Actions: 0
+------ End test Village ------
+
+File 'randomtestcard2.c'
+Lines executed:89.19% of 37
+Creating 'randomtestcard2.c.gcov'
+
+------ Testing playSmithy()...
+Ran 2000 tests
+Card draw failures: 2000
+------ End test Smithy ------
+
+File 'randomtestcard1.c'
+Lines executed:100.00% of 29
+Creating 'randomtestcard1.c.gcov'
+
+------ Testing playAdventurer()...
+Test ran 2000 times.
+Total failures: 10
+Treasure not drawn correctly: 10
+Totals drawn from cardEffet: 0 gold, 1981 silver, 2009 copper
+------ End test Adventurer ------
+
+File 'randomtestadventurer.c'
+Lines executed:95.00% of 80
+Creating 'randomtestadventurer.c.gcov'
+
