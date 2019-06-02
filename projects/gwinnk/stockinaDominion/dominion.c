@@ -1109,7 +1109,7 @@ int playAdventurer(int currentPlayer, struct gameState* state){
     }
 	  drawCard(currentPlayer, state);
 	  cardDrawn = state->hand[currentPlayer][state->handCount[currentPlayer]-1];//top card of hand is most recently drawn card.
-    if (cardDrawn == copper || cardDrawn == silver){
+    if (cardDrawn == copper || cardDrawn == silver|| cardDrawn == gold){
       drawntreasure++;
     }
     else{
@@ -1127,7 +1127,7 @@ int playAdventurer(int currentPlayer, struct gameState* state){
 
 int playSmithy(int currentPlayer, struct gameState* state, int handPos){
   //+3 Cards
-  for (int i = 0; i < 5; i++){
+  for (int i = 0; i < 3; i++){
 	  drawCard(currentPlayer, state);
 	}
   //discard card from hand
@@ -1171,7 +1171,7 @@ int playAmbassador(int choice1, int choice2, int currentPlayer, int handPos, str
 	}
 
   //discard played card from hand
-  gainCard(handPos, state, currentPlayer, 0);			
+  discardCard(handPos, state, currentPlayer, 0);			
 
   //trash copies of cards returned to supply
   for (j = 0; j < choice2; j++){
@@ -1214,7 +1214,7 @@ int playTreasureMap(int currentPlayer, int handPos, struct gameState* state){
   if (index > -1){
     //trash both treasure cards
     discardCard(handPos, currentPlayer, state, 1);
-
+    discardCard(index, currentPlayer, state, 1);
     //gain 4 Gold cards
     for (int i = 0; i < 3; i++){
       gainCard(silver, state, 1, currentPlayer);
